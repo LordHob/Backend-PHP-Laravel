@@ -10,7 +10,10 @@ class Membership extends Model
 
     use HasFactory;
 
-    protected $fillable = ['userId', 'partyId'];
+    protected $fillable = [
+        'userId',
+        'partyId'
+    ];
 
     public function user()
     {

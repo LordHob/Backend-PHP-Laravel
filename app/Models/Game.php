@@ -7,19 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    public function party()
-    {
-        return $this->hasMany(Party::class);
-    }
     use HasFactory;
 
     protected $fillable = [
         'title',
         'thumbnail_url',
-        'url',
+        'url'
     ];
 
-    protected $hidden = [
-        'isActive'
-    ];
+    public function user()
+    {
+        return $this->hasMany('App\Models\Party');
+    }
 }
