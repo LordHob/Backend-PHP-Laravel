@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFriendshipsTable extends Migration
+class CreateMembershipsTable extends Migration
 {
 
     /**
@@ -15,23 +15,22 @@ class CreateFriendshipsTable extends Migration
     public function up()
     {
 
-        Schema::create('friendships', function (Blueprint $table) {
+        Schema::create('memberships', function (Blueprint $table) {
 
             $table->id();
-            $table->boolean('accepted')->default('0');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
             //Foreign Keys
-            $table->unsignedBigInteger('userId1');
-            $table->foreign('userId1', 'fk_friendships1_users')
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId', 'fk_memberships_users')
                 ->on('users')
                 ->references('id')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger('userId2');
-            $table->foreign('userId2', 'fk_friendships2_users')
-                ->on('users')
+            $table->unsignedBigInteger('partyId');
+            $table->foreign('partyId', 'fk_memberships_parties')
+                ->on('parties')
                 ->references('id')
                 ->onDelete('cascade');
         });
@@ -45,6 +44,6 @@ class CreateFriendshipsTable extends Migration
     public function down()
     {
 
-        Schema::dropIfExists('friendsships');
+        Schema::dropIfExists('memberships');
     }
 }
