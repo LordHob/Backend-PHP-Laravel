@@ -7,27 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    // RELATION TO USER
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    // RELATION TO PARTY
-    public function party()
-    {
-        return $this->belongsTo(Party::class);
-    }
-
+    use HasFactory;
 
     protected $fillable = [
         'message',
-        'date',
-        'party_id',
-        'user_id'
+        'userId',
+        'partyId'
     ];
 
-    protected $hidden = [
-        'isActive',
-    ];
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'from', 'id');
+    }
+
+    public function party()
+    {
+        return $this->belongsTo('App\Models\Party', 'partyId', 'id');
+    }
 }
